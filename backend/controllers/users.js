@@ -76,7 +76,7 @@ class UsersController {
 
   static async postLogin (req, res, next) {
     try {
-      const passwordPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}/
+      const passwordPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,16}/
       const { email, password } = req.body
       if (isUndefined(email) || isNotValidSting(email) || isUndefined(password) || isNotValidSting(password)) {
         logger.warn('欄位未填寫正確')
@@ -87,10 +87,10 @@ class UsersController {
         return
       }
       if (!passwordPattern.test(password)) {
-        logger.warn('密碼不符合規則，需要包含英文數字大小寫，最短8個字，最長16個字')
+        logger.warn('密碼不符合規則，需要包含英文數字大小寫，最短10個字，最長16個字')
         res.status(400).json({
           status: 'failed',
-          message: '密碼不符合規則，需要包含英文數字大小寫，最短8個字，最長16個字'
+          message: '密碼不符合規則，需要包含英文數字大小寫，最短10個字，最長16個字'
         })
         return
       }
